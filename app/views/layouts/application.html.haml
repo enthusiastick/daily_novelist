@@ -7,15 +7,21 @@
 
     %title= content_for?(:title) ? yield(:title) : "DailyNovelist"
 
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track": "reload"
-    = javascript_include_tag "application", "data-turbolinks-track": true
+    = stylesheet_link_tag "application", media: "all"
+    = javascript_include_tag "application"
     = csrf_meta_tag
 
   %body{"data-sticky-container": ""}
-    .top-bar{"data-options": "marginBottom:0;", "data-stick-to": "bottom", "data-sticky": "", style: "width:100%"}
+    .show-for-medium.top-bar{"data-options": "marginBottom:0;", "data-stick-to": "bottom", "data-sticky": "", style: "width:100%"}
       .top-bar-left
         %ul.menu
           %li.menu-text DailyNovelist
+          -if user_signed_in?
+            %li
+              = link_to "Sign Out", sign_out_path, method: :delete
+          -elsif controller_name != "sessions"
+            %li
+              = link_to "Sign In", sign_in_path
       .top-bar-right
         %ul.menu
           %li
