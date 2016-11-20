@@ -1,0 +1,15 @@
+- content_for :header, @user.handle
+.row
+  .small-12.columns
+    .text-center
+      %p
+        Link
+        %strong Daily Novelist
+        account with
+        %strong #{@provider.humanize}
+        ?
+      = link_to user_identity_path(@user, @provider), class: "button large hollow", method: :patch do
+        Yes
+      &nbsp;
+      = link_to sign_in_path, class: "alert button large hollow" do
+        No

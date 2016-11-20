@@ -17,6 +17,7 @@ class UsersController < ApplicationController
         remember(@user)
         redirect_to post_auth_path
       else
+        flash[:alert] = "There was a problem with your registration."
         redirect_to sign_up_path
       end
     else

@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       get "sign-in", to: "user_sessions#new", as: :sign_in
       get "sign-up", to: "users#new", as: :sign_up
     end
+    resources :identities, only: [:edit, :update]
   end
 
 end

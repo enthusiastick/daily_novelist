@@ -1,9 +1,14 @@
 - content_for :header, "Sign In"
 .row
-  .small-12.medium-5.small-centered.columns
+  .small-12.medium-4.small-centered.columns
     .text-center
-      =link_to auth_path(:google_oauth2), class: "button hollow large" do
+      =link_to auth_path(:google_oauth2), class: "button expanded hollow large" do
+        Sign In With
         =fa_icon "google"
-        Sign In With Google
+        oogle
+      =link_to auth_path(:facebook), class: "button expanded hollow large" do
+        Sign In With
+        =fa_icon "facebook-f"
+        acebook
       %div
         =link_to "Sign in with a username and password", sign_in_users_path
