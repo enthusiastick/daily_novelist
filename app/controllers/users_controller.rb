@@ -6,13 +6,28 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
-    if @user.save
-      @user.send_confirmation_email
-      flash[:success] = "Registration successful. Please confirm your email to activate your account."
-      redirect_to root_path
+    if session[:auth].present?
+      @user.email = session[:auth]["info"]["email"]
+      @user.password = SecureRandom.base64
+      identity = Identity.new(provider: session[:auth]["provider"], uid: session[:auth]["uid"], user: @user)
+      if @user.save && identity.save
+        session.delete(:auth)
+        @user.update_attributes(confirmed_at: Time.now)
+        sign_in(@user)
+        remember(@user)
+        redirect_to post_auth_path
+      else
+        redirect_to sign_up_path
+      end
     else
-      flash.now[:alert] = "There was a problem with your registration."
-      render :new
+      if @user.save
+        @user.send_confirmation_email
+        flash[:success] = "Registration successful. Please confirm your email to activate your account."
+        redirect_to root_path
+      else
+        flash.now[:alert] = "There was a problem with your registration."
+        render :new
+      end
     end
   end
 
@@ -22,7 +37,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    session.delete(:auth)
     @user = User.new
+    @times = User::REMINDER_TIMES
   end
 
   def update
@@ -64,9 +81,11 @@ class UsersController < ApplicationController
   end
 
   def check_captcha
-    unless verify_recaptcha
-      self.resource = resource_class.new sign_up_params
-      respond_with_navigational(resource) { render :new }
+    unless session[:auth].present?
+      unless verify_recaptcha
+        self.resource = resource_class.new sign_up_params
+        respond_with_navigational(resource) { render :new }
+      end
     end
   end
 
@@ -75,7 +94,7 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:handle, :email, :first_name, :last_name, :password, :password_confirmation)
+    params.require(:user).permit(:handle, :email, :first_name, :last_name, :password, :password_confirmation, :reminder_active, :reminder_time, :time_zone)
   end
 
 end

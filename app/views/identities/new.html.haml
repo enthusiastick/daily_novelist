@@ -14,15 +14,13 @@
       .form-inputs
         %fieldset
           =f.text_field :handle, placeholder: "Username"
-        %fieldset
-          =f.email_field :email, placeholder: "Email"
         .row
           .small-12.medium-6.columns
             %fieldset
-              =f.text_field :first_name, placeholder: "First Name"
+              =f.text_field :first_name, placeholder: "First Name", value: @first_name
           .small-12.medium-6.columns
             %fieldset
-              =f.text_field :last_name, placeholder: "Last Name"
+              =f.text_field :last_name, placeholder: "Last Name", value: @last_name
         %fieldset
           .row
             .small-3.medium-1.columns
@@ -39,10 +37,5 @@
           .small-12.medium-6.columns
             %fieldset
               =f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Eastern Time (US & Canada)", include_blank: false
-        %fieldset
-          =f.password_field :password, placeholder: "Password"
-        %fieldset
-          =f.password_field :password_confirmation, placeholder: "Password Confirmation"
-        =recaptcha_tags
       .form-actions
         =f.submit "Register", class: "button hollow"

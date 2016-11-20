@@ -1,9 +1,9 @@
+- content_for :header, "Forgot Password"
 .row
   .small-12.columns
-    %h1.text-center.top-padded Forgot Password
     =form_for :password_reset, url: password_resets_path do |f|
       .form-inputs
         %fieldset
           =f.text_field :email, placeholder: "Email"
       .form-actions
-        =f.submit "Reset Password", class: "button"
+        =f.submit "Reset Password", class: "button hollow"

@@ -1,10 +1,38 @@
 class User < ApplicationRecord
   EMAIL_REGEXP = /\A[^@\s]+@([^@\s]+\.)+[^@\s]+\z/
   HANDLE_REGEXP = /\A[A-Za-z0-9]+(?:[_-][A-Za-z0-9]+)*\z/
+  REMINDER_TIMES = [
+    ["midnight","00:00"],
+    ["1:00am","01:00"],
+    ["2:00am","02:00"],
+    ["3:00am","03:00"],
+    ["4:00am","04:00"],
+    ["5:00am","05:00"],
+    ["6:00am","06:00"],
+    ["7:00am","07:00"],
+    ["8:00am","08:00"],
+    ["9:00am","09:00"],
+    ["10:00am","10:00"],
+    ["11:00am","11:00"],
+    ["noon","12:00"],
+    ["1:00pm","13:00"],
+    ["2:00pm","14:00"],
+    ["3:00pm","15:00"],
+    ["4:00pm","16:00"],
+    ["5:00pm","17:00"],
+    ["6:00pm","18:00"],
+    ["7:00pm","19:00"],
+    ["8:00pm","20:00"],
+    ["9:00pm","21:00"],
+    ["10:00pm","22:00"],
+    ["11:00pm","23:00"]
+  ]
 
   attr_accessor :confirmation_token, :password_reset_token, :remember_token
 
   before_create :generate_confirmation_digest
+
+  has_many :identities
 
   has_secure_password
 

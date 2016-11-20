@@ -12,6 +12,16 @@
     = csrf_meta_tag
 
   %body{"data-sticky-container": ""}
+    .row
+      .small-12.columns
+        %h1.text-center
+          = content_for?(:header) ? yield(:header) : "Daily Novelist"
+        - flash.each do |name, msg|
+          %div{ class: name + " callout", data: { closable: "" }}
+            = content_tag :span, msg
+            %button.close-button{ "aria-label": "Dismiss alert", data: { close: "" }, type: "button" }
+              %span{ "aria-hidden": true } &times;
+    = yield
     .show-for-medium.top-bar{"data-options": "marginBottom:0;", "data-stick-to": "bottom", "data-sticky": "", style: "width:100%"}
       .top-bar-left
         %ul.menu
@@ -34,4 +44,3 @@
             %a{href: "#"} About
           %li
             %a{href: "#"} Support
-    = yield

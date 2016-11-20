@@ -10,24 +10,37 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119202854) do
+ActiveRecord::Schema.define(version: 20161119232124) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "identities", force: :cascade do |t|
+    t.integer  "provider"
+    t.string   "uid"
+    t.integer  "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["uid"], name: "index_identities_on_uid", unique: true, using: :btree
+    t.index ["user_id"], name: "index_identities_on_user_id", using: :btree
+  end
+
   create_table "users", force: :cascade do |t|
     t.string   "confirmation_digest"
     t.datetime "confirmed_at"
-    t.string   "email",                  null: false
-    t.string   "first_name",             null: false
-    t.string   "handle",                 null: false
-    t.string   "last_name",              null: false
+    t.string   "email",                                    null: false
+    t.string   "first_name",                               null: false
+    t.string   "handle",                                   null: false
+    t.string   "last_name",                                null: false
     t.string   "password_digest"
     t.string   "password_reset_digest"
     t.datetime "password_reset_sent_at"
     t.string   "remember_digest"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "reminder_active",        default: true
+    t.string   "reminder_time",          default: "12:00"
+    t.string   "time_zone"
     t.index ["email"], name: "index_users_on_email", unique: true, using: :btree
     t.index ["handle"], name: "index_users_on_handle", unique: true, using: :btree
   end
