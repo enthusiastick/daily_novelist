@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :account_confirmations, only: [:edit]
   resources :auth, only: [:show]
+  resources :drabbles, only: [:index]
   resources :password_resets, only: [:create, :edit, :new, :update]
   resources :users, only: [:create, :edit, :update] do
     collection do

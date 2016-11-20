@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161119232124) do
+ActiveRecord::Schema.define(version: 20161120043049) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "drabbles", force: :cascade do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "word_count"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_drabbles_on_user_id", using: :btree
+  end
 
   create_table "identities", force: :cascade do |t|
     t.integer  "provider"
