@@ -33,7 +33,7 @@
         .row
           .small-12.medium-6.columns
             %fieldset
-              = f.select :reminder_time, @times
+              = f.select :reminder_time, User::REMINDER_TIMES
           .small-12.medium-6.columns
             %fieldset
               =f.time_zone_select :time_zone, ActiveSupport::TimeZone.us_zones, default: "Eastern Time (US & Canada)", include_blank: false
