@@ -6,10 +6,10 @@
         Link
         %strong Daily Novelist
         account with
-        %strong #{@provider.humanize}
+        %strong #{@provider.humanize.split(" ").first}
         ?
-      = link_to user_identity_path(@user, @provider), class: "button large hollow", method: :patch do
-        Yes
-      &nbsp;
       = link_to sign_in_path, class: "alert button large hollow" do
         No
+      &nbsp;
+      = link_to user_identity_path(@user, @provider), class: "button large hollow", method: :patch do
+        Yes
