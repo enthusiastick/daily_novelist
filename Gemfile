@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby "2.3.2"
+
 gem "bcrypt"
 gem "coffee-rails", "~> 4.2"
 gem "font-awesome-rails"
