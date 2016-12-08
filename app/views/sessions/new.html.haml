@@ -5,10 +5,12 @@
       =link_to auth_path(:google_oauth2), class: "button expanded hollow large" do
         Sign In With
         =fa_icon "google"
-        oogle
+        %span.pinch-left
+          oogle
       =link_to auth_path(:facebook), class: "button expanded hollow large" do
         Sign In With
         =fa_icon "facebook-f"
-        acebook
+        %span.pinch-left
+          acebook
       %div
         =link_to "Sign in with a username and password", sign_in_users_path

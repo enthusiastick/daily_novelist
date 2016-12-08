@@ -45,7 +45,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find_by(handle: params[:id])
     authorize_user(@user)
-    if @user.authenticate(params[:user][:password])
+    if (!@user.identities.empty? || @user.authenticate(params[:user][:password]))
       @user.assign_attributes(update_params)
       if @user.changed.include?("email") && @user.valid?
         @user.confirmed_at = nil

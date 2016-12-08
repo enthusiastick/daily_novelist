@@ -14,7 +14,8 @@
             %fieldset
               =f.label :last_name
               =f.text_field :last_name, placeholder: "Last Name"
-        %fieldset
-          =f.password_field :password, placeholder: "Current Password"
+        -if @user.identities.empty?
+          %fieldset
+            =f.password_field :password, placeholder: "Current Password"
       .form-actions
         =f.submit "Update", class: "button hollow"
