@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
+import DrabbleFormContainer from '../containers/DrabbleFormContainer';
 
 class DrabblesIndex extends Component {
-  constructor(props){
+  constructor(props) {
     super(props)
   }
 
@@ -10,7 +11,7 @@ class DrabblesIndex extends Component {
     return(
       <div className='row'>
         <div className='small-12 columns'>
-          Hello from Drabbles Index.
+          <DrabbleFormContainer />
         </div>
       </div>
     );
